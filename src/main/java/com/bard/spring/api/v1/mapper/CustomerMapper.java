@@ -16,9 +16,11 @@ public interface CustomerMapper {
     @Mapping(target = "customerUrl", ignore = true)
     CustomerDTO customerToCustomerDTO(Customer customer);
 
+    Customer customerDtoToCustomer(CustomerDTO customerDTO);
+
     @AfterMapping // or @BeforeMapping
-    default void calculateTotal(Customer customer, @MappingTarget CustomerDTO customerDTO) {
-        customerDTO.setCustomerUrl("/api/v1/customers/" + customer.getId());
+    default void setCustomerUrl(Customer customer, @MappingTarget CustomerDTO customerDTO) {
+        customerDTO.setCustomerUrl("/api/v1/customer/" + customer.getId());
     }
 
 }

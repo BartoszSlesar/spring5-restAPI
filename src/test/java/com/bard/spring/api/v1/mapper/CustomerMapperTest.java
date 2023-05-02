@@ -12,7 +12,7 @@ class CustomerMapperTest {
 
     public static final String FIRST_NAME = "Joe";
     public static final String LAST_NAME = "Doe";
-    public static final String CUSTOMER_URL = "/api/v1/customers/1";
+    public static final String CUSTOMER_URL = "/api/v1/customer/1";
     public static final long ID = 1L;
 
     CustomerMapper customerMapper = CustomerMapper.INSTANCE;
