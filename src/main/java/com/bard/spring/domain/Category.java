@@ -1,11 +1,14 @@
 package com.bard.spring.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class Category {
 
     @Id
@@ -14,4 +17,9 @@ public class Category {
 
     @Basic(optional = false)
     private String name;
+
+
+    public Category(String name) {
+        this.name = name;
+    }
 }
