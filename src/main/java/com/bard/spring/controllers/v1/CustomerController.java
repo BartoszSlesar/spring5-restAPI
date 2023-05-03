@@ -3,9 +3,13 @@ package com.bard.spring.controllers.v1;
 import com.bard.spring.api.v1.model.CustomerDTO;
 import com.bard.spring.api.v1.model.CustomerListDTO;
 import com.bard.spring.service.CustomerService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@Api(value = "This is my Customer Controller")
 @RestController
 @RequestMapping("/api/v1/customers") // v1 is to version of this API, for further development
 public class CustomerController {
@@ -15,6 +19,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
+    @ApiOperation(value = "This will get a list of customers")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CustomerListDTO getAllCustomers() {
