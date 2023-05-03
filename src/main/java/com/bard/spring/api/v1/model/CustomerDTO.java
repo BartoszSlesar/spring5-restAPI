@@ -11,7 +11,7 @@ public class CustomerDTO {
     private Long id;
     @JsonProperty("firstname")
     private String firstName;
-    @JsonProperty("lastName")
+    @JsonProperty("lastname")
     private String lastName;
     @JsonProperty("customer_url")
     private String customerUrl;

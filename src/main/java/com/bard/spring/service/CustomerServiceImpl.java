@@ -30,16 +30,48 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO getCustomerById(Long id) {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
-        return optionalCustomer.map(customerMapper::customerToCustomerDTO).orElseThrow(RuntimeException::new);
+        return optionalCustomer.map(customerMapper::customerToCustomerDTO).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
     public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
+        return saveCustomer(customerDTO);
+    }
+
+    @Override
+    public CustomerDTO updateCustomer(Long id, CustomerDTO customerDTO) {
+        customerDTO.setId(id);
+        return saveCustomer(customerDTO);
+    }
+
+
+    private CustomerDTO saveCustomer(CustomerDTO customerDTO) {
         Customer customer = customerMapper.customerDtoToCustomer(customerDTO);
-
         Customer savedCustomer = customerRepository.save(customer);
-
-
         return customerMapper.customerToCustomerDTO(savedCustomer);
     }
+
+    @Override
+    public CustomerDTO patchCustomer(Long id, CustomerDTO customerDTO) {
+        return customerRepository.findById(id).map(customer -> {
+
+            if (customerDTO.getFirstName() != null) {
+                customer.setFirstName(customerDTO.getFirstName());
+            }
+
+            if (customerDTO.getLastName() != null) {
+                customer.setLastName(customerDTO.getLastName());
+            }
+
+            return customerMapper.customerToCustomerDTO(customerRepository.save(customer));
+
+        }).orElseThrow(RuntimeException::new);
+    }
+
+    @Override
+    public void deleteCustomerById(Long id) {
+        customerRepository.deleteById(id);
+    }
+
+
 }
